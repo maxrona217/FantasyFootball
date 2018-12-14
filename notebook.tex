@@ -1,0 +1,836 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Fantasy Football}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{selenium} \PY{k+kn}{import} \PY{n}{webdriver} 
+        \PY{k+kn}{from} \PY{n+nn}{selenium.webdriver.common.by} \PY{k+kn}{import} \PY{n}{By} 
+        \PY{k+kn}{from} \PY{n+nn}{selenium.webdriver.support.ui} \PY{k+kn}{import} \PY{n}{WebDriverWait} 
+        \PY{k+kn}{from} \PY{n+nn}{selenium.webdriver.support} \PY{k+kn}{import} \PY{n}{expected\PYZus{}conditions} \PY{k}{as} \PY{n}{EC} 
+        \PY{k+kn}{from} \PY{n+nn}{selenium.common.exceptions} \PY{k+kn}{import} \PY{n}{TimeoutException}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k+kn}{import} \PY{n}{tqdm}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Clean the offense dataframe}
+        \PY{k}{def} \PY{n+nf}{clean\PYZus{}offense}\PY{p}{(}\PY{n}{offense}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{:}
+            \PY{n}{team\PYZus{}name} \PY{o}{=} \PY{n}{offense}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Box Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{offense}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{offense}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+            \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{==} \PY{n+nb}{float} \PY{k}{else} \PY{n}{x} \PY{p}{,}\PY{n+nb}{list}\PY{p}{(}\PY{n}{offense}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n}{z} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{if} \PY{o+ow}{not} \PY{n}{x}\PY{p}{]}
+            \PY{n}{offense\PYZus{}tags} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Passing }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rushing }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Receiving }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Misc }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{p}{,}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{offense\PYZus{}tags}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+            \PY{k}{for} \PY{n}{sublist} \PY{o+ow}{in} \PY{n}{names}\PY{p}{:}
+                \PY{k}{if}\PY{p}{(}\PY{n}{sep} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{columns}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sep}\PY{p}{)}
+                \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublist}\PY{p}{:}
+                    \PY{n}{columns}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+                \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{offense}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{columns}
+            \PY{n}{offense} \PY{o}{=} \PY{n}{offense}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{info}\PY{p}{:} \PY{n}{info}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{info}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{info}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{info}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ascii}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{info}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{info}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{info}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ascii}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{info}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OPP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OPP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offense} \PY{o}{=} \PY{n}{offense}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xbb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{team\PYZus{}name}
+            \PY{n}{offense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{week}
+            \PY{n}{l} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{offense}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+            \PY{n}{fields} \PY{o}{=} \PY{p}{[}\PY{n}{offense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{offense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{offense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{offense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{:}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{offense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{l}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+            \PY{n}{offense} \PY{o}{=} \PY{n}{offense}\PY{p}{[}\PY{n}{fields}\PY{p}{]}
+            
+            \PY{k}{return}\PY{p}{(}\PY{n}{offense}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{clean\PYZus{}defense}\PY{p}{(}\PY{n}{defense}\PY{p}{,} \PY{n}{team}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{:}
+            \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{defense} \PY{o}{=} \PY{n}{defense}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{defense}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{names}
+            \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{team}
+            \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{week}
+            \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xbb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D/ST}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{defense} \PY{o}{=} \PY{n}{defense}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SLOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}
+            \PY{k}{return}\PY{p}{(}\PY{n}{defense}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{clean\PYZus{}kicking}\PY{p}{(}\PY{n}{kicking}\PY{p}{,} \PY{n}{team}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{:}
+            \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{kicking}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{kicking} \PY{o}{=} \PY{n}{kicking}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{kicking}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{names}
+            \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xbb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{week}
+            \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{team}
+            \PY{n}{kicking} \PY{o}{=} \PY{n}{kicking}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SLOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{kicking}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{kicking}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+            \PY{k}{return}\PY{p}{(}\PY{n}{kicking}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Get all the stats for the week}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}stats}\PY{p}{(}\PY{n}{week}\PY{p}{)}\PY{p}{:}
+            \PY{n}{offenses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{defenses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{kickers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{url} \PY{o+ow}{in} \PY{n}{score\PYZus{}urls}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{n}{browser}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+                    \PY{n}{WebDriverWait}\PY{p}{(}\PY{n}{browser}\PY{p}{,} \PY{n}{timeout}\PY{p}{)}\PY{o}{.}\PY{n}{until}\PY{p}{(}\PY{n}{EC}\PY{o}{.}\PY{n}{visibility\PYZus{}of\PYZus{}element\PYZus{}located}\PY{p}{(}\PY{p}{(}\PY{n}{By}\PY{o}{.}\PY{n}{XPATH}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/div[4]/div/div/div/div[5]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{k}{except} \PY{n}{TimeoutException}\PY{p}{:}
+                    \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Timed out waiting for page to laod}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                    \PY{n}{browser}\PY{o}{.}\PY{n}{quit}\PY{p}{(}\PY{p}{)}
+                    
+                \PY{n}{home\PYZus{}team} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{teamInfos}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div[1]/div/div[2]/div[1]/b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+                \PY{n}{away\PYZus{}team} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{teamInfos}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div[2]/div/div[2]/div[1]/b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+        
+                \PY{n}{home\PYZus{}tables} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}html}\PY{p}{(}\PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/div[4]/div/div/div/div[5]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}attribute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{innerHTML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                \PY{n}{away\PYZus{}tables} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}html}\PY{p}{(}\PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/div[4]/div/div/div/div[6]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}attribute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{innerHTML}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                \PY{n}{offenses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}offense}\PY{p}{(}\PY{n}{home\PYZus{}tables}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+                \PY{n}{offenses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}offense}\PY{p}{(}\PY{n}{away\PYZus{}tables}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+                \PY{n}{defenses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}defense}\PY{p}{(}\PY{n}{home\PYZus{}tables}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{home\PYZus{}team}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+                \PY{n}{defenses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}defense}\PY{p}{(}\PY{n}{away\PYZus{}tables}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{away\PYZus{}team}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+                \PY{n}{kickers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}kicking}\PY{p}{(}\PY{n}{home\PYZus{}tables}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{home\PYZus{}team}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+                \PY{n}{kickers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clean\PYZus{}kicking}\PY{p}{(}\PY{n}{away\PYZus{}tables}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{away\PYZus{}team}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+            \PY{n}{offenses} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{offenses}\PY{p}{)}
+            \PY{n}{defenses} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{defenses}\PY{p}{)}
+            \PY{n}{kickers} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{kickers}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{p}{[}\PY{n}{offenses}\PY{p}{,} \PY{n}{defenses}\PY{p}{,} \PY{n}{kickers}\PY{p}{]}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Set browser options for incognito (for consistency) and headless}
+        \PY{n}{option} \PY{o}{=} \PY{n}{webdriver}\PY{o}{.}\PY{n}{ChromeOptions}\PY{p}{(}\PY{p}{)}
+        \PY{n}{option}\PY{o}{.}\PY{n}{add\PYZus{}argument}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{incognito}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{option}\PY{o}{.}\PY{n}{add\PYZus{}argument}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{headless}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Load league configs (\PYZsq{}May need to change directory\PYZsq{})}
+        \PY{n}{configs} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{config.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Log in to espn}
+        \PY{n}{browser} \PY{o}{=} \PY{n}{webdriver}\PY{o}{.}\PY{n}{Chrome}\PY{p}{(}\PY{n}{executable\PYZus{}path}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/datalabs1/Downloads/chromedriver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{chrome\PYZus{}options}\PY{o}{=}\PY{n}{option}\PY{p}{)}
+        \PY{n}{timeout} \PY{o}{=} \PY{l+m+mi}{20}
+        \PY{k}{try}\PY{p}{:}
+            \PY{n}{browser}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.espn.com/login}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{WebDriverWait}\PY{p}{(}\PY{n}{browser}\PY{p}{,} \PY{n}{timeout}\PY{p}{)}\PY{o}{.}\PY{n}{until}\PY{p}{(}\PY{n}{EC}\PY{o}{.}\PY{n}{visibility\PYZus{}of\PYZus{}element\PYZus{}located}\PY{p}{(}\PY{p}{(}\PY{n}{By}\PY{o}{.}\PY{n}{XPATH}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{disneyid\PYZhy{}iframe}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{browser}\PY{o}{.}\PY{n}{switch\PYZus{}to}\PY{o}{.}\PY{n}{frame}\PY{p}{(}\PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{disneyid\PYZhy{}iframe}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k}{except} \PY{n}{TimeoutException}\PY{p}{:}
+            \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Timed out waiting for page to load}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{browser}\PY{o}{.}\PY{n}{quit}\PY{p}{(}\PY{p}{)}
+        \PY{n}{username\PYZus{}text\PYZus{}box} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{did\PYZhy{}ui\PYZhy{}view}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/section/section/form/section/div[1]/div/label/span[2]/input}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{username\PYZus{}text\PYZus{}box}\PY{o}{.}\PY{n}{send\PYZus{}keys}\PY{p}{(}\PY{n}{configs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{username}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{password\PYZus{}text\PYZus{}box} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{did\PYZhy{}ui\PYZhy{}view}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/section/section/form/section/div[2]/div/label/span[2]/input}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{password\PYZus{}text\PYZus{}box}\PY{o}{.}\PY{n}{send\PYZus{}keys}\PY{p}{(}\PY{n}{configs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{password}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{login} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}element\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{did\PYZhy{}ui\PYZhy{}view}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/section/section/form/section/div[3]/button}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{login}\PY{o}{.}\PY{n}{click}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Get the weeks that have been played (Only regular season for now)}
+        \PY{n}{weeks\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/div/div[4]/div/div/div[2]/div[4]/a[contains(@title, }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{Week}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{)]}\PY{l+s+s1}{\PYZsq{}}
+        \PY{k}{try}\PY{p}{:}
+            \PY{n}{browser}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://games.espn.com/ffl/scoreboard?leagueId=\PYZob{}\PYZcb{}\PYZam{}matchupPeriodId=1}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{configs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{league\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{WebDriverWait}\PY{p}{(}\PY{n}{browser}\PY{p}{,} \PY{n}{timeout}\PY{p}{)}\PY{o}{.}\PY{n}{until}\PY{p}{(}\PY{n}{EC}\PY{o}{.}\PY{n}{visibility\PYZus{}of\PYZus{}element\PYZus{}located}\PY{p}{(}\PY{p}{(}\PY{n}{By}\PY{o}{.}\PY{n}{XPATH}\PY{p}{,} \PY{n}{weeks\PYZus{}path}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{except} \PY{n}{TimeoutException}\PY{p}{:}
+            \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Timed out waiting for page to load}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{browser}\PY{o}{.}\PY{n}{quit}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{weeks} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}elements\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{n}{weeks\PYZus{}path}\PY{p}{)}
+        \PY{n}{weeks} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{text}\PY{p}{)}\PY{p}{,} \PY{n}{weeks}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Collect stats for every week and combine}
+         \PY{n}{stats} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{week} \PY{o+ow}{in} \PY{n}{tqdm}\PY{p}{(}\PY{n}{weeks}\PY{p}{)}\PY{p}{:}
+             \PY{n}{score\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{//*[@class=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ptsBased matchup}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{]/tbody/tr[3]/td/div/a[2]}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{browser}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://games.espn.com/ffl/scoreboard?leagueId=\PYZob{}\PYZcb{}\PYZam{}matchupPeriodId=\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{configs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{league\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{week}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{WebDriverWait}\PY{p}{(}\PY{n}{browser}\PY{p}{,} \PY{n}{timeout}\PY{p}{)}\PY{o}{.}\PY{n}{until}\PY{p}{(}\PY{n}{EC}\PY{o}{.}\PY{n}{visibility\PYZus{}of\PYZus{}element\PYZus{}located}\PY{p}{(}\PY{p}{(}\PY{n}{By}\PY{o}{.}\PY{n}{XPATH}\PY{p}{,} \PY{n}{score\PYZus{}path}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{except} \PY{n}{TimeoutException}\PY{p}{:}
+                 \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Timed out waiting for page to load}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{browser}\PY{o}{.}\PY{n}{quit}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{score\PYZus{}urls} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{get\PYZus{}attribute}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{browser}\PY{o}{.}\PY{n}{find\PYZus{}elements\PYZus{}by\PYZus{}xpath}\PY{p}{(}\PY{n}{score\PYZus{}path}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{stats}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{n}{week}\PY{p}{)}\PY{p}{)}
+         \PY{n}{offense} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{stats}\PY{p}{]}\PY{p}{)}
+         \PY{n}{defense} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{stats}\PY{p}{]}\PY{p}{)}
+         \PY{n}{kicking} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{stats}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100\%|██████████| 12/12 [01:37<00:00,  6.07s/it]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{stats} \PY{o}{=} \PY{n}{get\PYZus{}stats}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{kicking} \PY{o}{=} \PY{n}{stats}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{kicking}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{kicking} \PY{o}{=} \PY{n}{kicking}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{kicking}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{names}
+          \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xbb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{week}
+          \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{team}
+          \PY{n}{kicking} \PY{o}{=} \PY{n}{kicking}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SLOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{kicking}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{kicking}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+          \PY{n}{kicking}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:}   WEEK FANTASY TEAM SLOT       PLAYER TEAM POS  OPP STATUS ET 1-39 40-49  50+  \textbackslash{}
+          2   12         Team    K  Matt Bryant  Atl   K  @NO   L 17-31  1/1   0/0  0/0   
+          
+             TOT   XP PTS  
+          2  1/1  2/2   5  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{team} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Team}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{defense} \PY{o}{=} \PY{n}{defense}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{defense}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{names}
+        \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{team}
+        \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{week}
+        \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xbb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{float} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{STATUS ET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{defense}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{defense} \PY{o}{=} \PY{n}{defense}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{WEEK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FANTASY TEAM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SLOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{defense}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}
+        \PY{k}{return}\PY{p}{(}\PY{n}{defense}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{offense}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    WEEK                 FANTASY TEAM  SLOT               PLAYER TEAM   OPP  \textbackslash{}
+         3     1    Thielen Good All The Time    QB           Cam Newton  Car   Dal   
+         4     1    Thielen Good All The Time    RB      Devonta Freeman  Atl  @Phi   
+         5     1    Thielen Good All The Time    RB            Jay Ajayi  Phi   Atl   
+         6     1    Thielen Good All The Time    WR         Keenan Allen  LAC    KC   
+         7     1    Thielen Good All The Time    WR         Adam Thielen  Min    SF   
+         8     1    Thielen Good All The Time    TE       Delanie Walker  Ten  @Mia   
+         9     1    Thielen Good All The Time  FLEX         Amari Cooper  Dal  @Car   
+         3     1   Got an OBJ from my Cousins    QB         Kirk Cousins  Min    SF   
+         4     1   Got an OBJ from my Cousins    RB       Saquon Barkley  NYG   Jax   
+         5     1   Got an OBJ from my Cousins    RB            Joe Mixon  Cin  @Ind   
+         6     1   Got an OBJ from my Cousins    WR    Odell Beckham Jr.  NYG   Jax   
+         7     1   Got an OBJ from my Cousins    WR          Chris Hogan   NE   Hou   
+         8     1   Got an OBJ from my Cousins    TE            Zach Ertz  Phi   Atl   
+         9     1   Got an OBJ from my Cousins  FLEX        Derrick Henry  Ten  @Mia   
+         3     1       Wakanda Black Panthers    QB     Matthew Stafford  Det   NYJ   
+         4     1       Wakanda Black Panthers    RB      Ezekiel Elliott  Dal  @Car   
+         5     1       Wakanda Black Panthers    RB          Dalvin Cook  Min    SF   
+         6     1       Wakanda Black Panthers    WR       Allen Robinson  Chi   @GB   
+         7     1       Wakanda Black Panthers    WR  JuJu Smith-Schuster  Pit  @Cle   
+         8     1       Wakanda Black Panthers    TE         Kyle Rudolph  Min    SF   
+         9     1       Wakanda Black Panthers  FLEX         LeSean McCoy  Buf  @Bal   
+         3     1               The Rafi Bombs    QB            Tom Brady   NE   Hou   
+         4     1               The Rafi Bombs    RB         Alvin Kamara   NO    TB   
+         5     1               The Rafi Bombs    RB          Kareem Hunt   FA   BYE   
+         6     1               The Rafi Bombs    WR        Davante Adams   GB   Chi   
+         7     1               The Rafi Bombs    WR        Brandin Cooks  LAR  @Oak   
+         8     1               The Rafi Bombs    TE           Greg Olsen  Car   Dal   
+         9     1               The Rafi Bombs  FLEX         Alex Collins  Bal   Buf   
+         3     1  U Just Got Beat By a Gurley    QB           Drew Brees   NO    TB   
+         4     1  U Just Got Beat By a Gurley    RB       Todd Gurley II  LAR  @Oak   
+         ..  {\ldots}                          {\ldots}   {\ldots}                  {\ldots}  {\ldots}   {\ldots}   
+         8    12  U Just Got Beat By a Gurley    TE           Greg Olsen  Car   Sea   
+         9    12  U Just Got Beat By a Gurley  FLEX          Gus Edwards  Bal   Oak   
+         3    12   Got an OBJ from my Cousins    QB         Kirk Cousins  Min    GB   
+         4    12   Got an OBJ from my Cousins    RB       Saquon Barkley  NYG  @Phi   
+         5    12   Got an OBJ from my Cousins    RB         James Conner  Pit  @Den   
+         6    12   Got an OBJ from my Cousins    WR    Odell Beckham Jr.  NYG  @Phi   
+         7    12   Got an OBJ from my Cousins    WR         Amari Cooper  Dal   Wsh   
+         8    12   Got an OBJ from my Cousins    TE            Zach Ertz  Phi   NYG   
+         9    12   Got an OBJ from my Cousins  FLEX            Joe Mixon  Cin   Cle   
+         3    12                   team bruno    QB          Andrew Luck  Ind   Mia   
+         4    12                   team bruno    RB          Sony Michel   NE  @NYJ   
+         5    12                   team bruno    RB         Chris Carson  Sea  @Car   
+         6    12                   team bruno    WR        Antonio Brown  Pit  @Den   
+         7    12                   team bruno    WR      DeAndre Hopkins  Hou   Ten   
+         8    12                   team bruno    TE        Austin Hooper  Atl   @NO   
+         9    12                   team bruno  FLEX       Kenny Golladay  Det   Chi   
+         3    12       Wakanda Black Panthers    QB        Lamar Jackson  Bal   Oak   
+         4    12       Wakanda Black Panthers    RB      Ezekiel Elliott  Dal   Wsh   
+         5    12       Wakanda Black Panthers    RB          Marlon Mack  Ind   Mia   
+         6    12       Wakanda Black Panthers    WR       Allen Robinson  Chi  @Det   
+         7    12       Wakanda Black Panthers    WR  JuJu Smith-Schuster  Pit  @Den   
+         8    12       Wakanda Black Panthers    TE         Kyle Rudolph  Min    GB   
+         9    12       Wakanda Black Panthers  FLEX          Dalvin Cook  Min    GB   
+         3    12     Melvin and The Chipmunks    QB       Russell Wilson  Sea  @Car   
+         4    12     Melvin and The Chipmunks    RB        Melvin Gordon  LAC   Ari   
+         5    12     Melvin and The Chipmunks    RB      Adrian Peterson  Wsh  @Dal   
+         6    12     Melvin and The Chipmunks    WR           Mike Evans   TB    SF   
+         7    12     Melvin and The Chipmunks    WR          T.Y. Hilton  Ind   Mia   
+         8    12     Melvin and The Chipmunks    TE       Rob Gronkowski   NE  @NYJ   
+         9    12     Melvin and The Chipmunks  FLEX        David Johnson  Ari  @LAC   
+         
+            STATUS ET Passing C/A Passing YDS Passing TD {\ldots}  Rushing YDS Rushing TD  \textbackslash{}
+         3     W 16-8       17/26         161          0 {\ldots}           58          1   
+         4    L 12-18         0/0           0          0 {\ldots}           36          0   
+         5    W 18-12         0/0           0          0 {\ldots}           62          2   
+         6    L 28-38         0/0           0          0 {\ldots}            0          0   
+         7    W 24-16         0/0           0          0 {\ldots}            0          0   
+         8    L 20-27         0/0           0          0 {\ldots}            0          0   
+         9     L 8-16         0/0           0          0 {\ldots}            9          0   
+         3    W 24-16       20/36         244          2 {\ldots}           26          0   
+         4    L 15-20         0/0           0          0 {\ldots}          106          1   
+         5    W 34-23         0/0           0          0 {\ldots}           95          1   
+         6    L 15-20         0/0           0          0 {\ldots}           -1          0   
+         7    W 27-20         0/0           0          0 {\ldots}            0          0   
+         8    W 18-12         0/0           0          0 {\ldots}            0          0   
+         9    L 20-27         0/0           0          0 {\ldots}           26          0   
+         3    L 17-48       27/46         286          1 {\ldots}            6          0   
+         4     L 8-16         0/0           0          0 {\ldots}           69          1   
+         5    W 24-16         0/0           0          0 {\ldots}           40          0   
+         6    L 23-24         0/0           0          0 {\ldots}            0          0   
+         7    T 21-21         0/0           0          0 {\ldots}            0          0   
+         8    W 24-16         0/0           0          0 {\ldots}            0          0   
+         9     L 3-47         0/0           0          0 {\ldots}           22          0   
+         3    W 27-20       26/39         277          3 {\ldots}            2          0   
+         4    L 40-48         0/0           0          0 {\ldots}           29          2   
+         5                      0           0          0 {\ldots}            0        NaN   
+         6    W 24-23         0/0           0          0 {\ldots}            0          0   
+         7    W 33-13         0/0           0          0 {\ldots}            6          0   
+         8     W 16-8         0/0           0          0 {\ldots}            0          0   
+         9     W 47-3         0/0           0          0 {\ldots}           13          1   
+         3    L 40-48       37/45         439          3 {\ldots}            0          0   
+         4    W 33-13         0/0           0          0 {\ldots}          108          0   
+         ..       {\ldots}         {\ldots}         {\ldots}        {\ldots} {\ldots}          {\ldots}        {\ldots}   
+         8    L 27-30         0/0           0          0 {\ldots}            0          0   
+         9    W 34-17         0/0           0          0 {\ldots}          118          0   
+         3    W 24-17       29/38         342          3 {\ldots}           17          0   
+         4    L 22-25         0/0           0          0 {\ldots}          101          1   
+         5    L 17-24         0/0           0          0 {\ldots}           53          0   
+         6    L 22-25         0/0           0          0 {\ldots}            0          0   
+         7    W 31-23         0/0           0          0 {\ldots}            0          0   
+         8    W 25-22         0/0           0          0 {\ldots}            0          0   
+         9    L 20-35         0/0           0          0 {\ldots}           89          0   
+         3    W 27-24       30/37         343          3 {\ldots}            5          0   
+         4    W 27-13         0/0           0          0 {\ldots}          133          1   
+         5    W 30-27         0/0           0          0 {\ldots}           55          1   
+         6    L 17-24         0/1           0          0 {\ldots}            0          0   
+         7    W 34-17         0/0           0          0 {\ldots}            0          0   
+         8    L 17-31         0/0           0          0 {\ldots}            0          0   
+         9    L 16-23         0/0           0          0 {\ldots}            0          0   
+         3    W 34-17       14/25         178          1 {\ldots}           71          1   
+         4    W 31-23         0/0           0          0 {\ldots}          121          1   
+         5    W 27-24         0/0           0          0 {\ldots}           85          0   
+         6    W 23-16         0/0           0          0 {\ldots}            0          0   
+         7    L 17-24         0/0           0          0 {\ldots}            0          0   
+         8    W 24-17         0/0           0          0 {\ldots}            0          0   
+         9    W 24-17         0/0           0          0 {\ldots}           29          0   
+         3    W 30-27       22/31         339          2 {\ldots}            4          0   
+         4    W 45-10         0/0           0          0 {\ldots}           61          2   
+         5    L 23-31         0/0           0          0 {\ldots}           35          0   
+         6     W 27-9         0/0           0          0 {\ldots}            0          0   
+         7    W 27-24         0/0           0          0 {\ldots}            0          0   
+         8    W 27-13         0/0           0          0 {\ldots}            0          0   
+         9    L 10-45         0/0           0          0 {\ldots}           63          0   
+         
+            Receiving REC Receiving YDS Receiving TD Receiving TAR Misc 2PC Misc FUML  \textbackslash{}
+         3              0             0            0             0        0         0   
+         4              3            14            0             5        0         0   
+         5              0             0            0             0        1         0   
+         6              8           108            1            11        0         0   
+         7              6           102            0            12        0         0   
+         8              4            52            0             7        0         0   
+         9              1             9            0             3        0         0   
+         3              0             0            0             0        0         0   
+         4              2            22            0             6        0         0   
+         5              5            54            0             7        0         0   
+         6             11           111            0            15        0         0   
+         7              1            11            0             5        0         0   
+         8              5            48            0            10        0         0   
+         9              1             5            0             1        0         0   
+         3              0             0            0             0        0         0   
+         4              3            17            0             4        0         0   
+         5              6            55            0             7        0         1   
+         6              4            61            0             7        0         0   
+         7              5           119            0             8        0         0   
+         8              1            11            1             2        0         0   
+         9              1            -1            0             3        0         0   
+         3              0             0            0             0        0         0   
+         4              9           112            1            12        1         0   
+         5              0             0            1           NaN        0         0   
+         6              5            88            1             8        0         0   
+         7              5            87            0             8        0         0   
+         8              2            33            0             2        0         0   
+         9              1             6            0             1        0         1   
+         3              0             0            0             0        1         0   
+         4              3            39            1             5        0         0   
+         ..           {\ldots}           {\ldots}          {\ldots}           {\ldots}      {\ldots}       {\ldots}   
+         8              2            11            0             4        0         0   
+         9              0             0            0             0        0         0   
+         3              0             0            0             0        0         0   
+         4              7            41            1             8        0         0   
+         5              4            42            0             4        0         1   
+         6              5            85            0             9        0         0   
+         7              8           180            2             9        0         0   
+         8              7            91            1             8        0         0   
+         9              7            66            0             7        0         0   
+         3              1             4            0             1        0         0   
+         4              2            12            0             2        0         0   
+         5              2             8            0             2        0         0   
+         6              9            67            0            13        0         0   
+         7              5            74            0             6        0         0   
+         8              5            31            0             5        0         0   
+         9              5            90            0             8        0         0   
+         3              0             0            0             0        0         0   
+         4              5            22            0             6        0         0   
+         5              2            11            0             2        0         0   
+         6              2            37            0             4        0         0   
+         7             13           189            1            17        0         0   
+         8              7            63            0             7        0         0   
+         9              3            47            1             3        0         0   
+         3              0             0            0             0        0         0   
+         4              2             5            0             2        0         0   
+         5              2             9            0             2        0         0   
+         6              6           116            0             8        0         0   
+         7              7           125            0            10        0         0   
+         8              3            56            1             7        0         0   
+         9              2            16            0             3        0         0   
+         
+            Misc TD  PTS  
+         3        0   17  
+         4        0    4  
+         5        0   20  
+         6        0   16  
+         7        0   10  
+         8        0    5  
+         9        0    0  
+         3        0   19  
+         4        0   18  
+         5        0   20  
+         6        0   11  
+         7        0    1  
+         8        0    4  
+         9        0    2  
+         3        0    7  
+         4        0   13  
+         5        0    7  
+         6        0    6  
+         7        0   11  
+         8        0    7  
+         9        0    2  
+         3        0   21  
+         4        0   33  
+         5      NaN  NaN  
+         6        0   14  
+         7        0    8  
+         8        0    3  
+         9        0    5  
+         3        0   31  
+         4        0   19  
+         ..     {\ldots}  {\ldots}  
+         8        0    1  
+         9        0   11  
+         3        0   26  
+         4        0   26  
+         5        0    7  
+         6        0    8  
+         7        0   30  
+         8        0   15  
+         9        0   14  
+         3        0   21  
+         4        0   20  
+         5        0   11  
+         6        0    6  
+         7        0    7  
+         8        0    3  
+         9        0    9  
+         3        0   20  
+         4        0   20  
+         5        0    9  
+         6        0    3  
+         7        0   24  
+         8        0    6  
+         9        0   12  
+         3        0   21  
+         4        0   18  
+         5        0    3  
+         6        0   11  
+         7        0   12  
+         8        0   11  
+         9        0    7  
+         
+         [672 rows x 22 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}xa0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{kicking}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PLAYER, TEAM POS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}97}]:} ['Atl']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{stats}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-127-3859c206ce43> in <module>()
+    ----> 1 pd.concat([x[2] for x in stats])
+    
+
+        /usr/local/lib/python2.7/site-packages/pandas/core/reshape/concat.pyc in concat(objs, axis, join, join\_axes, ignore\_index, keys, levels, names, verify\_integrity, sort, copy)
+        223                        keys=keys, levels=levels, names=names,
+        224                        verify\_integrity=verify\_integrity,
+    --> 225                        copy=copy, sort=sort)
+        226     return op.get\_result()
+        227 
+
+
+        /usr/local/lib/python2.7/site-packages/pandas/core/reshape/concat.pyc in \_\_init\_\_(self, objs, axis, join, join\_axes, keys, levels, names, ignore\_index, verify\_integrity, copy, sort)
+        284                        ' only pd.Series, pd.DataFrame, and pd.Panel'
+        285                        ' (deprecated) objs are valid'.format(type(obj)))
+    --> 286                 raise TypeError(msg)
+        287 
+        288             \# consolidate
+
+
+        TypeError: cannot concatenate object of type "<type 'list'>"; only pd.Series, pd.DataFrame, and pd.Panel (deprecated) objs are valid
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{stats}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} 8
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
